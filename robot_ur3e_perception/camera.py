@@ -117,6 +117,7 @@ class MyNode(MarkerPublisher, ShowingImage):
         Node.__init__(self, 'my_node_special')
         MarkerPublisher.__init__(self)
         ShowingImage.__init__(self)
+        MarkerPublisher.draw_marker(self, 0.5, 0.5, 0.5)
 
 def main(args=None):
     rclpy.init(args=args)
