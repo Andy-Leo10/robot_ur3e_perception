@@ -4,12 +4,11 @@ from visualization_msgs.msg import Marker
 
 class MarkerPublisher(Node):
     def __init__(self):
-        super().__init__('marker_publisher')
         self.publisher_ = self.create_publisher(Marker, 'visualization_marker', 10)
         timer_period = 0.5  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.timer = self.create_timer(timer_period, self.draw_marker)
 
-    def timer_callback(self):
+    def draw_marker(self):
         marker = Marker()
         marker.header.frame_id = "world"
         marker.header.stamp = self.get_clock().now().to_msg()
@@ -32,13 +31,3 @@ class MarkerPublisher(Node):
         marker.color.g = 1.0
         marker.color.b = 0.0
         self.publisher_.publish(marker)
-
-def main(args=None):
-    rclpy.init(args=args)
-    marker_publisher = MarkerPublisher()
-    rclpy.spin(marker_publisher)
-    marker_publisher.destroy_node()
-    rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()

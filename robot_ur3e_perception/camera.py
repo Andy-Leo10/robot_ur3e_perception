@@ -15,12 +15,12 @@ from cv_bridge import CvBridge, CvBridgeError
 # version 4.5.4
 import cv2
 import numpy as np
+# import my libraries
 
-
+from robot_ur3e_perception.marker import MarkerPublisher
 class ShowingImage(Node):
 
     def __init__(self):
-        super().__init__('my_camera_node')
         self.image_pub = self.create_publisher(Image, "/my_image_output", 10)
         self.bridge_object = CvBridge()
         # the image shape is 480x640x3
@@ -62,6 +62,7 @@ class ShowingImage(Node):
             # canny edge detection
             canny = cv2.Canny(gray, self.param1/2, self.param1)
             cv2.imshow('canny', canny)
+            
             '''
             parameters for HoughCircles:
             image: 8-bit, single-channel, grayscale input image.
@@ -102,8 +103,8 @@ class ShowingImage(Node):
                     cv2.circle(cv_image, center, radius, (255, 0, 255), 3)
 
             # publishing a modify image
-            # self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8"))
-            # self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(canny, encoding="mono8"))
+            self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8"))
+            #self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(segmentated, encoding="mono8"))
             cv2.imshow('circles', cv_image)
             cv2.imshow('segmentation', segmentated)
         except CvBridgeError as e:
@@ -111,12 +112,17 @@ class ShowingImage(Node):
 
         cv2.waitKey(1)
 
+class MyNode(MarkerPublisher, ShowingImage):
+    def __init__(self):
+        Node.__init__(self, 'my_node_special')
+        MarkerPublisher.__init__(self)
+        ShowingImage.__init__(self)
 
 def main(args=None):
     rclpy.init(args=args)
-    showing_image_object = ShowingImage()
-    rclpy.spin(showing_image_object)
-    showing_image_object.destroy_node()
+    my_node = MyNode()
+    rclpy.spin(my_node)
+    my_node.destroy_node()
     rclpy.shutdown()
 
 
