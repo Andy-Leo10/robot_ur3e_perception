@@ -27,6 +27,10 @@ setup(
         'console_scripts': [
             'talker = robot_ur3e_perception.talker:main',
             'listener = robot_ur3e_perception.listener:main',
+            'camera_rgb = robot_ur3e_perception.camera_rgb:main',
+            'camera_mono = robot_ur3e_perception.camera_mono:main',
+            'camera = robot_ur3e_perception.camera:main',
+            'marker = robot_ur3e_perception.marker:main',
         ],
     },
 )
