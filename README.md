@@ -12,9 +12,9 @@ cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source insta
 
 ## For normal image
 ```
-
 cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception camera_rgb
 ```
+
 ## For depth image
 ```
 cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception camera_mono

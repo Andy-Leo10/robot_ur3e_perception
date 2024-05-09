@@ -10,19 +10,25 @@ https://www.youtube.com/watch?v=R82EcsCgnfg&list=PLBg7GSvtrU2MOLWM0bGU1_FT3LsJPy
 
 import rclpy
 from rclpy.node import Node
+# image data and processing
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 # version 4.5.4
 import cv2
 import numpy as np
-# import my libraries
+# point position
+from geometry_msgs.msg import Point
 
-from robot_ur3e_perception.marker import MarkerPublisher
-class ShowingImage(Node):
+class PerceptionCup(Node):
 
     def __init__(self):
+        super().__init__('FREE_SPACE_FOR_CUP')
+        # publishers
         self.image_pub = self.create_publisher(Image, "/my_image_output", 10)
+        self.point_pub = self.create_publisher(Point, "/cup_position", 10)
+        # bridge for image processing
         self.bridge_object = CvBridge()
+        # subscribers
         # the image shape is 480x640x3
         self.image_sub = self.create_subscription(
             Image, "/wrist_rgbd_depth_sensor/image_raw", self.camera_callback, 10)
@@ -150,6 +156,7 @@ class ShowingImage(Node):
                 Z = depth
 
                 self.get_logger().info('3D position: ({}, {}, {})'.format(X, Y, Z))
+                self.point_pub.publish(Point(x=float(X), y=float(Y), z=float(Z)))
             else:
                 self.get_logger().info('No cup detected')
             cv2.imshow('depth', cv_image)
@@ -158,20 +165,12 @@ class ShowingImage(Node):
 
         cv2.waitKey(1)
 
-class MyNode(MarkerPublisher, ShowingImage):
-    def __init__(self):
-        Node.__init__(self, 'MY_NODE_SPECIAL')
-        MarkerPublisher.__init__(self)
-        ShowingImage.__init__(self)
-        MarkerPublisher.draw_marker(self, 0.5, 0.5, 0.5)
-
 def main(args=None):
     rclpy.init(args=args)
-    my_node = MyNode()
-    rclpy.spin(my_node)
-    my_node.destroy_node()
+    perception_node = PerceptionCup()
+    rclpy.spin(perception_node)
+    perception_node.destroy_node()
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
