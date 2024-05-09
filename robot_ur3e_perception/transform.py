@@ -12,18 +12,22 @@ from geometry_msgs.msg import Point
 
 class TF_Manager(Node):
     def __init__(self):
-        super().__init__('tf_manager')
+        super().__init__('TF_MANAGER')
         # TF listener
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
+        self.abs_x = 0
+        self.abs_y = 0
+        self.abs_z = 0
         # TF publisher
         self.broadcaster = TransformBroadcaster(self)
         self.static_broadcaster = StaticTransformBroadcaster(self)
         # timer for loging transform
-        self.create_timer(1, self.timer_callback)
+        self.create_timer(1.0, self.timer_callback)
         # point subscriber
         self.subscription = self.create_subscription(
-            Point, 'cup_position', self.point_callback, 10)
+            Point, 'cup_rel_position', self.point_callback, 10)
+        self.point_pub = self.create_publisher(Point, "/cup_abs_position", 10)
     
     def point_callback(self, msg):
         # set the transform
@@ -41,10 +45,18 @@ class TF_Manager(Node):
         transform = self.get_transform('world', 'CUP')
         if transform:
             self.log_transform(transform)
-
+            point = Point()
+            point.x = self.abs_x
+            point.y = self.abs_y
+            point.z = self.abs_z
+            self.point_pub.publish(point)
+            
     def log_transform(self, transform):
         self.get_logger().info('Transform: %s -> %s' % (transform.header.frame_id, transform.child_frame_id))
         self.get_logger().info('Translation: %s' % transform.transform.translation)
+        self.abs_x = transform.transform.translation.x
+        self.abs_y = transform.transform.translation.y
+        self.abs_z = transform.transform.translation.z
         self.get_logger().info('Rotation: %s' % transform.transform.rotation)
 
     def set_transform(self, target_frame, source_frame, x, y, z):

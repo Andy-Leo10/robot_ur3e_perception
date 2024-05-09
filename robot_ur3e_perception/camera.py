@@ -25,7 +25,7 @@ class PerceptionCup(Node):
         super().__init__('FREE_SPACE_FOR_CUP')
         # publishers
         self.image_pub = self.create_publisher(Image, "/my_image_output", 10)
-        self.point_pub = self.create_publisher(Point, "/cup_position", 10)
+        self.point_pub = self.create_publisher(Point, "/cup_rel_position", 10)
         # bridge for image processing
         self.bridge_object = CvBridge()
         # subscribers
