@@ -26,6 +26,10 @@ class ShowingImage(Node):
         # the image shape is 480x640x3
         self.image_sub = self.create_subscription(
             Image, "/wrist_rgbd_depth_sensor/image_raw", self.camera_callback, 10)
+        self.depth_sub = self.create_subscription(
+            Image, "/wrist_rgbd_depth_sensor/depth/image_raw", self.depth_callback, 10)
+        self.cup_space_available = False
+        self.cup_spaces = []
         # declaring my parameters
         self.minDist = self.declare_parameter("min_distance_centers", 20)
         self.param1 = self.declare_parameter("high_canny_threshold", 255) # greater is better
@@ -94,6 +98,7 @@ class ShowingImage(Node):
 
             if circles is not None:
                 circles = np.uint16(np.around(circles))
+                self.cup_spaces = [] # clear the list
                 for i in circles[0, :]:
                     center = (i[0], i[1])
                     # circle center
@@ -101,6 +106,11 @@ class ShowingImage(Node):
                     # circle outline
                     radius = i[2]
                     cv2.circle(cv_image, center, radius, (255, 0, 255), 3)
+                    # save centers and radius in a list 
+                    self.cup_spaces.append((center, radius))
+                self.cup_space_available = True
+            else:
+                self.cup_space_available = False
 
             # publishing a modify image
             self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8"))
@@ -112,9 +122,45 @@ class ShowingImage(Node):
 
         cv2.waitKey(1)
 
+    def depth_callback(self, msg):
+        try:
+            cv_image = self.bridge_object.imgmsg_to_cv2(
+                msg, desired_encoding="32FC1")
+            # if(self.cup_space_available):
+            #     for center, radius in self.cup_spaces:
+            #         # get the depth value
+            #         depth = cv_image[center[1], center[0]]
+            #         self.get_logger().info('Depth value: {}'.format(depth))
+            if(self.cup_space_available):
+                # take the 1st cup
+                center, radius = self.cup_spaces[0]
+                # get the depth value
+                depth = cv_image[center[1], center[0]]
+                self.get_logger().info('Depth value 1: {}'.format(depth))
+                
+                # get the intrinsic parameters
+                fx = 520.7813804684724  # focal length in x
+                fy = 520.7813804684724  # focal length in y
+                cx = 320.5  # optical center x
+                cy = 240.5  # optical center y
+                
+                # calculate 3D position
+                X = (center[0] - cx) * depth / fx
+                Y = (center[1] - cy) * depth / fy
+                Z = depth
+
+                self.get_logger().info('3D position: ({}, {}, {})'.format(X, Y, Z))
+            else:
+                self.get_logger().info('No cup detected')
+            cv2.imshow('depth', cv_image)
+        except CvBridgeError as e:
+            self.get_logger().info('{}'.format(e))
+
+        cv2.waitKey(1)
+
 class MyNode(MarkerPublisher, ShowingImage):
     def __init__(self):
-        Node.__init__(self, 'my_node_special')
+        Node.__init__(self, 'MY_NODE_SPECIAL')
         MarkerPublisher.__init__(self)
         ShowingImage.__init__(self)
         MarkerPublisher.draw_marker(self, 0.5, 0.5, 0.5)
