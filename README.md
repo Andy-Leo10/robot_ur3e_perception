@@ -15,7 +15,10 @@
 cd /home/user/ros2_ws/src/robot_ur3e_perception; source venv/bin/activate
 ```
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_yolov5.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5.launch.py
+```
+```
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5_tf_marker.launch.py
 ```
 
 ## For searching a coffee space - SIM

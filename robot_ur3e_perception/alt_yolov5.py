@@ -11,6 +11,7 @@ import torch
 from pathlib import Path
 # point position
 from geometry_msgs.msg import Point
+import numpy as np
 
 class ShowingImage(Node):
 
@@ -39,6 +40,7 @@ class ShowingImage(Node):
         # atributtes for the cup detection
         self.cup_space_found = False
         self.cup_spaces = []
+        self.hole_depth = 0.040  # meters
         
     def camera_callback(self, msg):
         try:
@@ -117,8 +119,29 @@ class ShowingImage(Node):
                 Y = (center[1] - cy) * depth / fy
                 Z = depth
 
-                self.get_logger().info('3D position: ({:.3f}, {:.3f}, {:.3f})'.format(X, Y, Z))
-                self.point_pub.publish(Point(x=float(X), y=float(Y), z=float(Z)))
+                # modify the relative position because point of interest is on top
+                # of the hole for the cup and not in the deepest part of the hole
+                # for that reason: is necessary to modify the magnitude of this
+                # vector with a FIX direction
+                # Adjust Z value
+                desired_Z = Z - self.hole_depth  # adjustment is the amount you want to subtract from Z
+                # Calculate the current magnitude of the vector # 0.834
+                current_magnitude = np.sqrt(X**2 + Y**2 + Z**2) 
+                # self.get_logger().info('Current magnitude: {:.3f}'.format(current_magnitude))
+                # Calculate the new magnitude based on the desired Z
+                new_magnitude = current_magnitude * (desired_Z / Z)
+                # Normalize the vector
+                X_normalized = X / current_magnitude
+                Y_normalized = Y / current_magnitude
+                Z_normalized = Z / current_magnitude
+                # self.get_logger().info('Normalized 3D position: ({:.3f}, {:.3f}, {:.3f})'.format(X_normalized, Y_normalized, Z_normalized))
+                # Scale the normalized vector by the new magnitude
+                X_new = X_normalized * new_magnitude
+                Y_new = Y_normalized * new_magnitude
+                Z_new = Z_normalized * new_magnitude
+
+                self.get_logger().info('3D position: ({:.3f}, {:.3f}, {:.3f})'.format(X_new, Y_new, Z_new))
+                self.point_pub.publish(Point(x=float(X_new), y=float(Y_new), z=float(Z_new)))
             else:
                 self.get_logger().info('No cup detected')
         except CvBridgeError as e:

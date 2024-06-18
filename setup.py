@@ -29,7 +29,10 @@ setup(
             'sim_transform  = robot_ur3e_perception.sim_transform:main',
             'sim_marker     = robot_ur3e_perception.sim_marker:main',
             'sim_snapshot   = robot_ur3e_perception.sim_snapshot:main',
+
             'alt_yolov5     = robot_ur3e_perception.alt_yolov5:main',
+            'alt_transform  = robot_ur3e_perception.alt_transform:main',
+            'alt_marker     = robot_ur3e_perception.alt_marker:main',
         ],
     },
 )
