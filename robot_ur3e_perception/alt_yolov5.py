@@ -34,7 +34,7 @@ class ShowingImage(Node):
         # Model
         self.model = torch.hub.load(str(Path("/home/user/yolov5")), 
                            "custom", 
-                           path=Path("/home/user/linux.pt"), 
+                           path=Path("/home/user/ros2_ws/src/robot_ur3e_perception/linux.pt"), 
                            source="local").to(self.device)
         
         # atributtes for the cup detection
