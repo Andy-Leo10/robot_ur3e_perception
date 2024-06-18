@@ -5,17 +5,17 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='robot_ur3e_perception',
-            executable='camera',
-            name='camera_launch'
+            executable='sim_dip',
+            name='sim_dip_launch'
         ),
         Node(
             package='robot_ur3e_perception',
-            executable='transform',
-            name='transform_launch'
+            executable='sim_transform',
+            name='sim_transform_launch'
         ),
         Node(
             package='robot_ur3e_perception',
-            executable='marker',
-            name='marker_launch'
+            executable='sim_marker',
+            name='sim_marker_launch'
         ),
     ])

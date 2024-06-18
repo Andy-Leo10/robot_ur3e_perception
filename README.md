@@ -15,30 +15,30 @@
 cd /home/user/ros2_ws/src/robot_ur3e_perception; source venv/bin/activate
 ```
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception yolov5.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_yolov5.launch.py
 ```
 
 ## For searching a coffee space - SIM
 ### Launch Camera & TF
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception camera_tf.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf.launch.py
 ```
 ### Launch Camera & TF & Marker
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception camera_tf_marker.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf_marker.launch.py
 ```
 ### If ran separately
 Run Camera
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception camera
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_dip
 ```
 Run Transform
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception transform
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_transform
 ```
 Run Marker
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception marker
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_marker
 ```
 
 ## Resources

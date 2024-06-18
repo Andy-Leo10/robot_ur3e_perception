@@ -71,7 +71,7 @@ class PerceptionCup(Node):
             
             # canny edge detection
             canny = cv2.Canny(gray, self.param1/2, self.param1)
-            cv2.imshow('canny', canny)
+            #cv2.imshow('canny', canny)
             
             '''
             parameters for HoughCircles:
@@ -106,7 +106,7 @@ class PerceptionCup(Node):
                 circles = np.uint16(np.around(circles))
                 self.cup_spaces = [] # clear the list
                 for i in circles[0, :]:
-                    center = (i[0], i[1])
+                    center = (i[0]+5, i[1]-5)
                     # circle center
                     cv2.circle(cv_image, center, 1, (0, 100, 100), 3)
                     # circle outline
@@ -122,7 +122,7 @@ class PerceptionCup(Node):
             self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(cv_image, encoding="bgr8"))
             #self.image_pub.publish(self.bridge_object.cv2_to_imgmsg(segmentated, encoding="mono8"))
             cv2.imshow('circles', cv_image)
-            cv2.imshow('segmentation', segmentated)
+            #cv2.imshow('segmentation', segmentated)
         except CvBridgeError as e:
             self.get_logger().info('{}'.format(e))
 
@@ -142,7 +142,6 @@ class PerceptionCup(Node):
                 center, radius = self.cup_spaces[0]
                 # get the depth value
                 depth = cv_image[center[1], center[0]]
-                self.get_logger().info('Depth value 1: {}'.format(depth))
                 
                 # get the intrinsic parameters
                 fx = 520.7813804684724  # focal length in x
@@ -155,11 +154,11 @@ class PerceptionCup(Node):
                 Y = (center[1] - cy) * depth / fy
                 Z = depth
 
-                self.get_logger().info('3D position: ({}, {}, {})'.format(X, Y, Z))
+                self.get_logger().info('3D position: ({:.3f}, {:.3f}, {:.3f})'.format(X, Y, Z))
                 self.point_pub.publish(Point(x=float(X), y=float(Y), z=float(Z)))
             else:
                 self.get_logger().info('No cup detected')
-            cv2.imshow('depth', cv_image)
+
         except CvBridgeError as e:
             self.get_logger().info('{}'.format(e))
 

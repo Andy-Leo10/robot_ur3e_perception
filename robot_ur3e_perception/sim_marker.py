@@ -62,13 +62,14 @@ class MarkerPublisher(Node):
         self.new_message_received = False
                 
     def draw_marker(self, x, y, z):
-        self.marker.scale.x = self.cylinder_x
-        self.marker.scale.y = self.cylinder_y
-        self.marker.scale.z = self.cylinder_z
+        # Access the parameter values directly as floats
+        self.marker.scale.x = float(self.get_parameter("cylinder_x").value)
+        self.marker.scale.y = float(self.get_parameter("cylinder_y").value)
+        self.marker.scale.z = float(self.get_parameter("cylinder_z").value)
         self.marker.pose.position.x = x
         self.marker.pose.position.y = y
         self.marker.pose.position.z = z
-        self.marker.color.a = 0.5 # transparency
+        self.marker.color.a = 0.5  # transparency
         self.marker.color.r = 0.0
         self.marker.color.g = 1.0
         self.marker.color.b = 0.0

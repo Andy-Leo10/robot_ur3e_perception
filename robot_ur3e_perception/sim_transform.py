@@ -53,11 +53,11 @@ class TF_Manager(Node):
             
     def log_transform(self, transform):
         self.get_logger().info('Transform: %s -> %s' % (transform.header.frame_id, transform.child_frame_id))
-        self.get_logger().info('Translation: %s' % transform.transform.translation)
+        self.get_logger().info('Translation: (%.3f, %.3f, %.3f)' % (transform.transform.translation.x, transform.transform.translation.y, transform.transform.translation.z))
         self.abs_x = transform.transform.translation.x
         self.abs_y = transform.transform.translation.y
         self.abs_z = transform.transform.translation.z
-        self.get_logger().info('Rotation: %s' % transform.transform.rotation)
+        self.get_logger().info('Rotation: %.3f, %.3f, %.3f, %.3f' % (transform.transform.rotation.x, transform.transform.rotation.y, transform.transform.rotation.z, transform.transform.rotation.w))
 
     def set_transform(self, target_frame, source_frame, x, y, z):
         transform = TransformStamped()

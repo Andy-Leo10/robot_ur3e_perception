@@ -25,11 +25,11 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'camera = robot_ur3e_perception.camera:main',
-            'transform = robot_ur3e_perception.transform:main',
-            'marker = robot_ur3e_perception.marker:main',
-            'snapshot = robot_ur3e_perception.snapshot:main',
-            'yolov5 = robot_ur3e_perception.yolov5:main',
+            'sim_dip        = robot_ur3e_perception.sim_dip:main',
+            'sim_transform  = robot_ur3e_perception.sim_transform:main',
+            'sim_marker     = robot_ur3e_perception.sim_marker:main',
+            'sim_snapshot   = robot_ur3e_perception.sim_snapshot:main',
+            'alt_yolov5     = robot_ur3e_perception.alt_yolov5:main',
         ],
     },
 )
