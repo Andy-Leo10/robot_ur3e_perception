@@ -33,6 +33,10 @@ setup(
             'alt_yolov5     = robot_ur3e_perception.alt_yolov5:main',
             'alt_transform  = robot_ur3e_perception.alt_transform:main',
             'alt_marker     = robot_ur3e_perception.alt_marker:main',
+
+            'real_yolov5     = robot_ur3e_perception.real_yolov5:main',
+            'real_transform  = robot_ur3e_perception.real_transform:main',
+            'real_marker     = robot_ur3e_perception.real_marker:main',
         ],
     },
 )
