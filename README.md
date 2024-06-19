@@ -2,26 +2,32 @@
 
 - [robot\_ur3e\_perception](#robot_ur3e_perception)
   - [For searching a coffee space - REAL](#for-searching-a-coffee-space---real)
-    - [Launch YoloV5](#launch-yolov5)
+    - [Launch YoloV5 \& TF](#launch-yolov5--tf)
   - [For searching a coffee space - SIM](#for-searching-a-coffee-space---sim)
+    - [Launch YoloV5 \& TF](#launch-yolov5--tf-1)
     - [Launch Camera \& TF](#launch-camera--tf)
     - [Launch Camera \& TF \& Marker](#launch-camera--tf--marker)
     - [If ran separately](#if-ran-separately)
   - [Resources](#resources)
 
 ## For searching a coffee space - REAL
-### Launch YoloV5
+### Launch YoloV5 & TF
 ```
 cd /home/user/ros2_ws/src/robot_ur3e_perception; source venv/bin/activate
 ```
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5.launch.py
-```
-```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5_tf_marker.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception real_yolov5_tf.launch.py
 ```
 
+
 ## For searching a coffee space - SIM
+### Launch YoloV5 & TF
+```
+cd /home/user/ros2_ws/src/robot_ur3e_perception; source venv/bin/activate
+```
+```
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5_tf.launch.py
+```
 ### Launch Camera & TF
 ```
 cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf.launch.py
