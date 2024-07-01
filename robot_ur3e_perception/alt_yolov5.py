@@ -158,3 +158,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+# export PYTHONPATH=$PYTHONPATH:/home/user/ros2_ws/src/robot_ur3e_perception/venv/lib/python3.10/site-packages/

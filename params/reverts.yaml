@@ -1,0 +1,13 @@
+/D415/D415:
+  ros__parameters:
+    pointcloud:
+      allow_no_texture_points: "true"
+      enable: "false"
+      filter_magnitude: 2
+      frames_queue_size: 16
+      ordered_pc: "false"
+      pointcloud_qos: DEFAULT
+      stream_filter: 2
+      stream_format_filter: 0
+
+# ros2 param dump /D415/D415 > D415_parameters.yaml

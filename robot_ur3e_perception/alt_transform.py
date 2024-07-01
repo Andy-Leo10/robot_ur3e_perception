@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/user/ros2_ws/src/robot_ur3e_perception/venv/bin/python
 
 import rclpy
 from rclpy.node import Node

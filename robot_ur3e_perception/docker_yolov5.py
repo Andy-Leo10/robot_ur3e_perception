@@ -1,4 +1,4 @@
-#!/home/user/ros2_ws/src/robot_ur3e_perception/venv/bin/python
+#!/ros2_ws/src/robot_ur3e_perception/venv/bin/python
 
 import rclpy
 from rclpy.node import Node
@@ -24,17 +24,17 @@ class ShowingImage(Node):
         self.bridge_object = CvBridge()
         # subscribers
         self.image_sub = self.create_subscription(
-            Image, "/D415/color/image_raw", self.camera_callback, 10)
+            Image, "/wrist_rgbd_depth_sensor/image_raw", self.camera_callback, 10)
         self.depth_sub = self.create_subscription(
-            Image, "/D415/aligned_depth_to_color/image_raw", self.depth_callback, 10)
-        # /D415/depth/image_rect_raw
+            Image, "/wrist_rgbd_depth_sensor/depth/image_raw", self.depth_callback, 10)
+        
         # Check if CUDA (GPU support) is available
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print(f'Using device: {self.device}')
         # Model
-        self.model = torch.hub.load(str(Path("/home/user/yolov5")), 
+        self.model = torch.hub.load("/yolov5", 
                            "custom", 
-                           path=Path("/home/user/ros2_ws/src/robot_ur3e_perception/linux.pt"), 
+                           path=Path("/ros2_ws/src/robot_ur3e_perception/linux.pt"), 
                            source="local").to(self.device)
         
         # atributtes for the cup detection
@@ -106,13 +106,13 @@ class ShowingImage(Node):
                 # take the 1st cup
                 center = self.cup_spaces[0]
                 # get the depth value
-                depth = cv_image[center[1], center[0]] / 1000.0
+                depth = cv_image[center[1], center[0]]
                 
                 # get the intrinsic parameters
-                fx = 306.80584716796875  # focal length in x
-                fy = 306.6424560546875  # focal length in y
-                cx = 214.4418487548828  # optical center x
-                cy = 124.9103012084961  # optical center y
+                fx = 520.7813804684724  # focal length in x
+                fy = 520.7813804684724  # focal length in y
+                cx = 320.5  # optical center x
+                cy = 240.5  # optical center y
                 
                 # calculate 3D position
                 X = (center[0] - cx) * depth / fx
@@ -158,21 +158,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-# ros2 topic echo /D415/aligned_depth_to_color/camera_info
-# k[0]: Focal length in x direction (fx), 306.80584716796875
-# k[2]: Optical center in x direction (cx), 214.4418487548828
-# k[4]: Focal length in y direction (fy), 306.6424560546875
-# k[5]: Optical center in y direction (cy), 124.9103012084961
-
-# ros2 topic echo /D415/color/camera_info
-# k[0]: Focal length in x direction (fx), 306.80584716796875
-# k[2]: Optical center in x direction (cx), 214.4418487548828
-# k[4]: Focal length in y direction (fy), 306.6424560546875
-# k[5]: Optical center in y direction (cy), 124.9103012084961
-
-# ros2 topic echo /D415/depth/camera_info
-# k[0]: Focal length in x direction (fx), 335.9652404785156
-# k[2]: Optical center in x direction (cx), 244.83682250976562
-# k[4]: Focal length in y direction (fy), 335.9652404785156
-# k[5]: Optical center in y direction (cy), 134.9224090576172
