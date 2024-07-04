@@ -32,9 +32,9 @@ class ShowingImage(Node):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print(f'Using device: {self.device}')
         # Model
-        self.model = torch.hub.load(str(Path("/home/user/yolov5")), 
+        self.model = torch.hub.load(str(Path("/home/user/ros2_ws/src/coffee-dispenser-project/yolov5")), 
                            "custom", 
-                           path=Path("/home/user/ros2_ws/src/robot_ur3e_perception/linux.pt"), 
+                           path=Path("/home/user/ros2_ws/src/coffee-dispenser-project/robot_ur3e_perception/linux.pt"), 
                            source="local").to(self.device)
         
         # atributtes for the cup detection

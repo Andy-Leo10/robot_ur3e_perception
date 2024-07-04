@@ -53,7 +53,7 @@ class Panda_listener(Node):
         for name, position in zip(msg.name, msg.position):
             if name in self.joint_names_of_interest:
                 self.joint_positions[name] = position
-        self.get_logger().info('Joint positions: %s' % self.joint_positions)
+        # self.get_logger().info('Joint positions: %s' % self.joint_positions)
 
     def get_transform(self, target_frame, source_frame):
         try:
@@ -65,11 +65,15 @@ class Panda_listener(Node):
             return None
 
     def save_data_service_callback(self, request, response):
-        with open('data.csv', 'a', newline='') as csvfile:
+        transform = self.get_transform('base_link', 'tool0')
+        with open('/home/user/ros2_ws/src/robot_ur3e_perception/data.csv', 'a', newline='') as csvfile:
             fieldnames = self.joint_names_of_interest + ['X', 'Y', 'Z']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             data = {name: self.joint_positions.get(
                 name, 0) for name in self.joint_names_of_interest}
+            self.pos_x = transform.transform.translation.x
+            self.pos_y = transform.transform.translation.y
+            self.pos_z = transform.transform.translation.z
             data.update({'X': self.pos_x, 'Y': self.pos_y, 'Z': self.pos_z})
             writer.writerow(data)
         response.success = True
@@ -97,3 +101,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+# ros2 service call /save_data std_srvs/srv/Trigger {}
