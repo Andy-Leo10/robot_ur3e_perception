@@ -31,7 +31,7 @@ class TF_Manager(Node):
     
     def point_callback(self, msg):
         # set the transform
-        self.set_transform('wrist_rgbd_camera_link', 'CUP', msg.z, -msg.x, -msg.y)
+        self.set_transform('wrist_rgbd_camera_depth_frame', 'CUP', msg.z, -msg.x, -msg.y)
                 
     def get_transform(self, target_frame, source_frame):
         try:
@@ -68,9 +68,9 @@ class TF_Manager(Node):
         transform.transform.translation.y = y
         transform.transform.translation.z = z
         transform.transform.rotation.x = 0.0
-        transform.transform.rotation.y = 0.0
+        transform.transform.rotation.y = -0.49999999999999994
         transform.transform.rotation.z = 0.0
-        transform.transform.rotation.w = 1.0
+        transform.transform.rotation.w = 0.8660254037844387
         self.broadcaster.sendTransform(transform)
         
     def set_transform_static(self, target_frame, source_frame):

@@ -8,9 +8,17 @@ from std_srvs.srv import Trigger
 class SavePhotoNode(Node):
     def __init__(self):
         super().__init__('save_photo_node')
+        # Conditionally subscribe to the image topic based on use_sim_time
+        use_sim_time = self.get_parameter('use_sim_time').get_parameter_value().bool_value
+        if use_sim_time:
+            image_topic = '/wrist_rgbd_depth_sensor/image_raw'
+            self.get_logger().info("Robot is in simulation mode.")
+        else:
+            image_topic = '/D415/color/image_raw'
+            self.get_logger().info("Robot is in real mode.")
         self.subscription = self.create_subscription(
             Image,
-            '/wrist_rgbd_depth_sensor/image_raw',
+            image_topic,
             self.listener_callback,
             10)
         self.bridge = CvBridge()
@@ -30,7 +38,7 @@ class SavePhotoNode(Node):
         if hasattr(self, 'latest_msg') and self.latest_msg is not None:
             try:
                 cv_image = self.bridge.imgmsg_to_cv2(self.latest_msg, "bgr8")
-                path = '/home/user/ros2_ws/src/robot_ur3e_perception/snapshot'
+                path = '/home/user/ros2_ws/src/coffee-dispenser-project/robot_ur3e_perception/snapshot'
                 photo_name = f"photo_{self.get_clock().now().to_msg().sec}.jpg"
                 photo_path = path + '/' + photo_name
                 cv2.imwrite(photo_path, cv_image)
@@ -49,3 +57,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+    
+# ros2 service call /save_photo std_srvs/srv/Trigger '{}'

@@ -6,7 +6,7 @@ def generate_launch_description():
         Node(
             package='robot_ur3e_perception',
             executable='snapshot',
-            name='sim_snapshot_launch',
-            parameters=[{'use_sim_time': True}]
+            name='real_snapshot_launch',
+            parameters=[{'use_sim_time': False}]
         ),
     ])

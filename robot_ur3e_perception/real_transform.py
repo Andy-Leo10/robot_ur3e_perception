@@ -31,7 +31,7 @@ class TF_Manager(Node):
     
     def point_callback(self, msg):
         # set the transform
-        self.set_transform('D415_link', 'CUP', msg.z, -msg.x, -msg.y)
+        self.set_transform('D415_color_frame', 'CUP', msg.z, -msg.x, -msg.y)
                 
     def get_transform(self, target_frame, source_frame):
         try:
@@ -67,10 +67,10 @@ class TF_Manager(Node):
         transform.transform.translation.x = x
         transform.transform.translation.y = y
         transform.transform.translation.z = z
-        transform.transform.rotation.x = 0.0
-        transform.transform.rotation.y = 0.0
-        transform.transform.rotation.z = 0.0
-        transform.transform.rotation.w = 1.0
+        transform.transform.rotation.x = 0.0018529052660899727
+        transform.transform.rotation.y = -0.5634106983633584
+        transform.transform.rotation.z = 0.0012635872076802214
+        transform.transform.rotation.w = 0.8261769695227001
         self.broadcaster.sendTransform(transform)
         
     def set_transform_static(self, target_frame, source_frame):

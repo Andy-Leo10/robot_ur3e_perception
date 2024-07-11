@@ -28,8 +28,9 @@ setup(
             'sim_dip        = robot_ur3e_perception.sim_dip:main',
             'sim_transform  = robot_ur3e_perception.sim_transform:main',
             'sim_marker     = robot_ur3e_perception.sim_marker:main',
-            'sim_snapshot   = robot_ur3e_perception.sim_snapshot:main',
             'sim_data       = robot_ur3e_perception.sim_data:main',
+
+            'snapshot       = robot_ur3e_perception.snapshot:main',
 
             'alt_yolov5     = robot_ur3e_perception.alt_yolov5:main',
             'alt_transform  = robot_ur3e_perception.alt_transform:main',
