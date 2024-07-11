@@ -160,18 +160,24 @@ if __name__ == '__main__':
     main()
 
 # ros2 topic echo /D415/aligned_depth_to_color/camera_info
+# height: 240
+# width: 424
 # k[0]: Focal length in x direction (fx), 306.80584716796875
 # k[2]: Optical center in x direction (cx), 214.4418487548828
 # k[4]: Focal length in y direction (fy), 306.6424560546875
 # k[5]: Optical center in y direction (cy), 124.9103012084961
 
 # ros2 topic echo /D415/color/camera_info
+# height: 240
+# width: 424
 # k[0]: Focal length in x direction (fx), 306.80584716796875
 # k[2]: Optical center in x direction (cx), 214.4418487548828
 # k[4]: Focal length in y direction (fy), 306.6424560546875
 # k[5]: Optical center in y direction (cy), 124.9103012084961
 
 # ros2 topic echo /D415/depth/camera_info
+# height: 270
+# width: 480
 # k[0]: Focal length in x direction (fx), 335.9652404785156
 # k[2]: Optical center in x direction (cx), 244.83682250976562
 # k[4]: Focal length in y direction (fy), 335.9652404785156

@@ -71,7 +71,7 @@ class ShowingImage(Node):
             
             self.cup_spaces = [] # clear the list
             # Publish the yolo v5 image detection
-            confidence_threshold = 0.75  # Set your desired confidence threshold here
+            confidence_threshold = 0.88  # Set your desired confidence threshold here
             # Filter detections based on the confidence threshold
             filtered_detections = [detection for detection in detections if detection[4] > confidence_threshold]
             if len(filtered_detections) > 0:

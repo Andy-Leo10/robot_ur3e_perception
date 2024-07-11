@@ -8,11 +8,14 @@ git clone https://github.com/Andy-Leo10/robot_ur3e_perception.git
   - [Install libraries](#install-libraries)
   - [For searching a coffee space - SIM](#for-searching-a-coffee-space---sim)
     - [Launch YoloV5 \& TF](#launch-yolov5--tf)
-    - [Launch Camera \& TF](#launch-camera--tf)
-    - [Launch Camera \& TF \& Marker](#launch-camera--tf--marker)
+    - [Launch Digital-Image-Processing \& TF](#launch-digital-image-processing--tf)
+    - [Take pictures](#take-pictures)
+    - [Launch Digital-Image-Processing \& TF \& Marker](#launch-digital-image-processing--tf--marker)
     - [If ran separately](#if-ran-separately)
   - [For searching a coffee space - REAL](#for-searching-a-coffee-space---real)
     - [Launch YoloV5 \& TF](#launch-yolov5--tf-1)
+    - [Optionally](#optionally)
+    - [Take pictures](#take-pictures-1)
   - [Resources](#resources)
 
 ---
@@ -46,26 +49,30 @@ cd /home/user/ros2_ws/src/coffee-dispenser-project/robot_ur3e_perception; source
 ```
 cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception alt_yolov5_tf.launch.py
 ```
-### Launch Camera & TF
+### Launch Digital-Image-Processing & TF
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf.launch.py
 ```
-### Launch Camera & TF & Marker
+### Take pictures
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf_marker.launch.py
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception real_snapshot.launch.py
+```
+### Launch Digital-Image-Processing & TF & Marker
+```
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception sim_dip_tf_marker.launch.py
 ```
 ### If ran separately
-Run Camera
+Run Digital-Image-Processing
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_dip
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 run robot_ur3e_perception sim_dip
 ```
 Run Transform
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_transform
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 run robot_ur3e_perception sim_transform
 ```
 Run Marker
 ```
-cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception;source install/setup.bash; ros2 run robot_ur3e_perception sim_marker
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 run robot_ur3e_perception sim_marker
 ```
 
 </details>
@@ -85,6 +92,16 @@ cd /home/user/ros2_ws/src/coffee-dispenser-project/robot_ur3e_perception; source
 ```
 ```
 cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception real_yolov5_tf.launch.py
+```
+
+### Optionally
+```
+ros2 param set /D415/D415 pointcloud.enable true
+```
+
+### Take pictures
+```
+cd ~/ros2_ws/ ;colcon build --packages-select robot_ur3e_perception --symlink-install; source install/setup.bash; ros2 launch robot_ur3e_perception real_snapshot.launch.py
 ```
 
 </details>

@@ -1,0 +1,180 @@
+user:~$ ros2 topic echo /D415/aligned_depth_to_color/camera_info --once
+1720715079.200996 [0]       ros2: config: //CycloneDDS/Domain/General: 'NetworkInterfaceAddress': deprecated element (file:///var/lib/theconstruct.rrl/cyclonedds.xml line 5)
+1720715079.201707 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+1720715079.201707 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+header:
+  stamp:
+    sec: 1720715079
+    nanosec: 642550016
+  frame_id: D415_color_optical_frame
+height: 240
+width: 424
+distortion_model: plumb_bob
+d:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+k:
+- 306.80584716796875
+- 0.0
+- 214.4418487548828
+- 0.0
+- 306.6424560546875
+- 124.9103012084961
+- 0.0
+- 0.0
+- 1.0
+r:
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+p:
+- 306.80584716796875
+- 0.0
+- 214.4418487548828
+- 0.0
+- 0.0
+- 306.6424560546875
+- 124.9103012084961
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+binning_x: 0
+binning_y: 0
+roi:
+  x_offset: 0
+  y_offset: 0
+  height: 0
+  width: 0
+  do_rectify: false
+---
+user:~$ ros2 topic echo /D415/color/camera_info --once
+1720715117.857022 [0]       ros2: config: //CycloneDDS/Domain/General: 'NetworkInterfaceAddress': deprecated element (file:///var/lib/theconstruct.rrl/cyclonedds.xml line 5)
+1720715117.857660 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+1720715117.857660 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+header:
+  stamp:
+    sec: 1720715118
+    nanosec: 337161216
+  frame_id: D415_color_optical_frame
+height: 240
+width: 424
+distortion_model: plumb_bob
+d:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+k:
+- 306.80584716796875
+- 0.0
+- 214.4418487548828
+- 0.0
+- 306.6424560546875
+- 124.9103012084961
+- 0.0
+- 0.0
+- 1.0
+r:
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+p:
+- 306.80584716796875
+- 0.0
+- 214.4418487548828
+- 0.0
+- 0.0
+- 306.6424560546875
+- 124.9103012084961
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+binning_x: 0
+binning_y: 0
+roi:
+  x_offset: 0
+  y_offset: 0
+  height: 0
+  width: 0
+  do_rectify: false
+---
+user:~$ ros2 topic echo /D415/depth/camera_info --once
+1720715125.175679 [0]       ros2: config: //CycloneDDS/Domain/General: 'NetworkInterfaceAddress': deprecated element (file:///var/lib/theconstruct.rrl/cyclonedds.xml line 5)
+1720715125.176488 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+1720715125.176488 [0]       ros2: add_peer_addresses: 1_xterm: unknown address
+header:
+  stamp:
+    sec: 1720715125
+    nanosec: 739605504
+  frame_id: D415_depth_optical_frame
+height: 270
+width: 480
+distortion_model: plumb_bob
+d:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+k:
+- 335.9652404785156
+- 0.0
+- 244.83682250976562
+- 0.0
+- 335.9652404785156
+- 134.9224090576172
+- 0.0
+- 0.0
+- 1.0
+r:
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+p:
+- 335.9652404785156
+- 0.0
+- 244.83682250976562
+- 0.0
+- 0.0
+- 335.9652404785156
+- 134.9224090576172
+- 0.0
+- 0.0
+- 0.0
+- 1.0
+- 0.0
+binning_x: 0
+binning_y: 0
+roi:
+  x_offset: 0
+  y_offset: 0
+  height: 0
+  width: 0
+  do_rectify: false
+---
